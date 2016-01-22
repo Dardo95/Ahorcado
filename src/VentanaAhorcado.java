@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLayeredPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,34 +33,30 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     public VentanaAhorcado() {
         initComponents();
         //aquí va el código que poniamos en el run en ACM
-        
+        cambiaImagenAhorcado();
     }
+    
+    //setIconImage(new ImageIcon(getClass().getResource("/inicioSesion/icon.png")).getImage());
 
-    @Override
-    public void paint (Graphics g){
-        super.paint(g);
-        //con esto indicamos que vamos a dibujar en el panel
-        g = jPanel1.getGraphics();
-        Image miImagen = null;
-        try {
-            //cargamos una imagen
-            switch (numeroFallos){
-                case 0: miImagen = ImageIO.read(getClass().getResource("/ahorcado_0.png")); break;
-                case 1: miImagen = ImageIO.read(getClass().getResource("/ahorcado_1.png")); break;
-                case 2: miImagen = ImageIO.read(getClass().getResource("/ahorcado_2.png")); break;
-                case 3: miImagen = ImageIO.read(getClass().getResource("/ahorcado_3.png")); break;
-                case 4: miImagen = ImageIO.read(getClass().getResource("/ahorcado_4.png")); break;
-                case 5: miImagen = ImageIO.read(getClass().getResource("/ahorcado_5.png")); break;
-                case 6: miImagen = ImageIO.read(getClass().getResource("/ahorcado_fin.png")); break;
-                case -1 : miImagen = ImageIO.read(getClass().getResource("/acertasteTodo.png")); break;
-                default : miImagen = ImageIO.read(getClass().getResource("/ahorcado_fin.png")); break;
-            }
-            
-        } catch (IOException ex) {
-           
+    private void cambiaImagenAhorcado(){
+        String nombreImagen = "";
+        
+        switch (numeroFallos) {
+            case 0: nombreImagen = "/ahorcado_0.png"; break;
+                case 1: nombreImagen = "/ahorcado_1.png"; break;
+                case 2: nombreImagen = "/ahorcado_2.png"; break;
+                case 3: nombreImagen = "/ahorcado_3.png"; break;
+                case 4: nombreImagen = "/ahorcado_4.png"; break;
+                case 5: nombreImagen = "/ahorcado_5.png"; break;
+                case 6: nombreImagen = "/ahorcado_fin.png"; break;
+                case -1 : nombreImagen = "/acertasteTodo.png"; break;
+                default : nombreImagen = "/ahorcado_fin.png"; break;
         }
-        //dibujo la imagen en el jPanel
-        g.drawImage(miImagen, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(), null);
+       
+        ImageIcon a = new ImageIcon(getClass().getResource(nombreImagen));
+        Image auxiliar = a.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+        ImageIcon imageIcon = new ImageIcon(auxiliar);
+        jLabel2.setIcon(imageIcon);     
     }
     
     
@@ -90,7 +89,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 
             }
         }
-        repaint();
+        cambiaImagenAhorcado();
     }
     
     /**
@@ -103,7 +102,6 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -131,6 +129,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
         jButton26 = new javax.swing.JButton();
         jButton27 = new javax.swing.JButton();
         jButton28 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -140,26 +139,13 @@ public class VentanaAhorcado extends javax.swing.JFrame {
         jLabel1.setText("_ _ _ _ _ ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 330, 69));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 169, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 194, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
-
         jButton1.setText("A");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton1MousePressed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 42, 42));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 42, 42));
 
         jButton2.setText("B");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,7 +153,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton2MousePressed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 310, 42, 42));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 42, 42));
 
         jButton3.setText("C");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -175,7 +161,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton3MousePressed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 310, 42, 42));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 42, 42));
 
         jButton4.setText("D");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -183,7 +169,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton4MousePressed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 310, 42, 42));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 42, 42));
 
         jButton5.setText("E");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,7 +177,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton5MousePressed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 310, 42, 42));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 42, 42));
 
         jButton6.setText("F");
         jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,7 +185,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton6MousePressed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 42, 42));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 42, 42));
 
         jButton7.setText("G");
         jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -207,7 +193,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton7MousePressed(evt);
             }
         });
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 310, 42, 42));
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 42, 42));
 
         jButton8.setText("H");
         jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -215,7 +201,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton8MousePressed(evt);
             }
         });
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 358, 42, 42));
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 42, 42));
 
         jButton9.setText("I");
         jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -223,7 +209,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton9MousePressed(evt);
             }
         });
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 358, 42, 42));
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 42, 42));
 
         jButton10.setText("J");
         jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,7 +217,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton10MousePressed(evt);
             }
         });
-        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 358, 42, 42));
+        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 42, 42));
 
         jButton11.setText("K");
         jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -239,7 +225,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton11MousePressed(evt);
             }
         });
-        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 358, 42, 42));
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 42, 42));
 
         jButton12.setText("L");
         jButton12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -247,7 +233,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton12MousePressed(evt);
             }
         });
-        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 358, 42, 42));
+        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 42, 42));
 
         jButton13.setText("M");
         jButton13.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -255,7 +241,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton13MousePressed(evt);
             }
         });
-        getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 358, 42, 42));
+        getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 42, 42));
 
         jButton14.setText("N");
         jButton14.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -263,7 +249,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton14MousePressed(evt);
             }
         });
-        getContentPane().add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 358, 42, 42));
+        getContentPane().add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 410, 42, 42));
 
         jButton15.setText("Ñ");
         jButton15.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -271,7 +257,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton15MousePressed(evt);
             }
         });
-        getContentPane().add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 406, 42, 42));
+        getContentPane().add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 42, 42));
 
         jButton16.setText("O");
         jButton16.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,7 +265,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton16MousePressed(evt);
             }
         });
-        getContentPane().add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 406, 42, 42));
+        getContentPane().add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 42, 42));
 
         jButton17.setText("P");
         jButton17.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -287,7 +273,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton17MousePressed(evt);
             }
         });
-        getContentPane().add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 406, 42, 42));
+        getContentPane().add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 42, 42));
 
         jButton18.setText("Q");
         jButton18.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -295,7 +281,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton18MousePressed(evt);
             }
         });
-        getContentPane().add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 406, 42, 42));
+        getContentPane().add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, 42, 42));
 
         jButton19.setText("R");
         jButton19.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -303,7 +289,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton19MousePressed(evt);
             }
         });
-        getContentPane().add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 406, 42, 42));
+        getContentPane().add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 460, 42, 42));
 
         jButton20.setText("S");
         jButton20.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -311,7 +297,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton20MousePressed(evt);
             }
         });
-        getContentPane().add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 406, 42, 42));
+        getContentPane().add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 42, 42));
 
         jButton21.setText("T");
         jButton21.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -319,7 +305,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton21MousePressed(evt);
             }
         });
-        getContentPane().add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 406, 42, 42));
+        getContentPane().add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 42, 42));
 
         jButton22.setText("U");
         jButton22.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -327,7 +313,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton22MousePressed(evt);
             }
         });
-        getContentPane().add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 454, 42, 42));
+        getContentPane().add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 42, 42));
 
         jButton23.setText("V");
         jButton23.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -335,7 +321,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton23MousePressed(evt);
             }
         });
-        getContentPane().add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 454, 42, 42));
+        getContentPane().add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 510, 42, 42));
 
         jButton24.setText("W");
         jButton24.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -343,7 +329,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton24MousePressed(evt);
             }
         });
-        getContentPane().add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 454, 42, 42));
+        getContentPane().add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, 42, 42));
 
         jButton26.setText("X");
         jButton26.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -351,7 +337,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton26MousePressed(evt);
             }
         });
-        getContentPane().add(jButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 454, 42, 42));
+        getContentPane().add(jButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 42, 42));
 
         jButton27.setText("Y");
         jButton27.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -359,7 +345,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton27MousePressed(evt);
             }
         });
-        getContentPane().add(jButton27, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 454, 42, 42));
+        getContentPane().add(jButton27, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 510, 42, 42));
 
         jButton28.setText("Z");
         jButton28.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -367,7 +353,8 @@ public class VentanaAhorcado extends javax.swing.JFrame {
                 jButton28MousePressed(evt);
             }
         });
-        getContentPane().add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 454, 42, 42));
+        getContentPane().add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, 42, 42));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 270, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -544,6 +531,6 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
